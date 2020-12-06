@@ -1,7 +1,9 @@
-name: TheREDCinemas server
+name: Run Lint - The RED Cinemas
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
 
 jobs:
@@ -11,7 +13,6 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x]
-        mongodb-version: [4.2]
 
     steps:
       - uses: actions/checkout@v2
@@ -19,9 +20,5 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          
       - run: npm ci
-      - name: Start Install
-      - run: npm install
-      - name: Start Test
-      - run: npm test
+      - run: npm run lint
